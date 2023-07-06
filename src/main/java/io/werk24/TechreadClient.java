@@ -203,8 +203,12 @@ public class TechreadClient {
         int maxPages,
         String drawingFilename
     ) {
+        // Get client version
+        String client_version = getClientVersion();
+
         // Prepare techread request and send initialization command
-        W24TechreadRequest request = new W24TechreadRequest(asks, null, "1.0", maxPages, drawingFilename);
+        W24TechreadRequest request = new W24TechreadRequest(
+            asks, null, client_version, maxPages, drawingFilename);
         try {
             W24TechreadMessage response = techreadClientWss.sendCommand(
                 W24TechreadAction.INITIALIZE,
@@ -214,6 +218,18 @@ public class TechreadClient {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Gets the client version.
+     */
+    private String getClientVersion() {
+        // Get client version
+        String client_version = getClass().getPackage().getImplementationVersion();
+        if (client_version == null) {
+            client_version = "0.0.0";
+        }
+        return client_version + "-java";
     }
 
     /**

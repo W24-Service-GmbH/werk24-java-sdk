@@ -1,6 +1,9 @@
 package io.werk24.model;
 
 enum W24TechreadMessageSubtype {
+    /**
+     * Message Subtype
+     */
     // ERROR
     UNSUPPORTED_DRAWING_FILE_FORMAT,
     INTERNAL,
